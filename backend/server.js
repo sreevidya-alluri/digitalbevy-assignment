@@ -1,13 +1,14 @@
 const express = require("express");
 const axios = require("axios");
+const cors = require("cors");
+require("dotenv").config();
 
 const app = express();
-app.use(express.json()); 
-require('dotenv').config();
+app.use(express.json());
+app.use(cors());
 
 const PORT = process.env.PORT || 3000;
 const GITHUB_API_URL = "https://api.github.com/search/repositories";
-
 
 const cache = {};
 
@@ -18,14 +19,12 @@ app.post("/api/search", async (req, res) => {
       return res.status(400).json({ error: "Keyword required" });
     }
 
-  
     if (cache[keyword]) {
       return res.json({
         message: "From cache",
         items: cache[keyword].items,
       });
     }
-
 
     const githubRes = await axios.get(
       `${GITHUB_API_URL}?q=${encodeURIComponent(keyword)}&per_page=5`,
@@ -67,11 +66,10 @@ app.get("/api/results", (req, res) => {
   res.json({ results: result.items });
 });
 
-// 🗂 View entire cache
 app.get("/api/cache", (req, res) => {
   res.json(cache);
 });
 
 app.listen(PORT, () => {
-  console.log(`✅ Server running at http://localhost:${PORT}`);
+  console.log(`Server running at http://localhost:${PORT}`);
 });

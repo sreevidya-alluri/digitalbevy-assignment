@@ -3,6 +3,10 @@ import SearchForm from "./components/SearchForm";
 import ResultsDashboard from "./components/ResultsDashboard";
 import "./App.css";
 
+
+const API_BASE = process.env.REACT_APP_API_BASE || "";
+
+
 export default function App() {
   const [results, setResults] = useState([]);
   const [searchLoading, setSearchLoading] = useState(false);
@@ -13,7 +17,6 @@ export default function App() {
   const [pages, setPages] = useState(1);
   const [currentKeyword, setCurrentKeyword] = useState("");
 
-  
   const fetchResults = async (pageNum = 1, keyword) => {
     console.log(`Fetching results for keyword="${keyword}" page=${pageNum}`);
     setDashboardLoading(true);
@@ -21,7 +24,9 @@ export default function App() {
     try {
       if (!keyword) throw new Error("Keyword is required to fetch results");
 
-      const res = await fetch(`/api/results?keyword=${encodeURIComponent(keyword)}&page=${pageNum}`);
+      const res = await fetch(
+        `${API_BASE}/api/results?keyword=${encodeURIComponent(keyword)}&page=${pageNum}`
+      );
       if (!res.ok) {
         console.error("Failed to fetch results:", res.status, res.statusText);
         throw new Error(`Error: ${res.statusText}`);
@@ -44,13 +49,12 @@ export default function App() {
     }
   }, [currentKeyword]);
 
-  
   const handleSearch = async (keyword) => {
     console.log("Starting search for:", keyword);
     setSearchError("");
     setSearchLoading(true);
     try {
-      const res = await fetch("/api/search", {
+      const res = await fetch(`${API_BASE}/api/search`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ keyword }),
@@ -62,14 +66,13 @@ export default function App() {
       const json = await res.json();
       console.log("Search POST response:", json);
 
-      setCurrentKeyword(keyword);  
+      setCurrentKeyword(keyword);
     } catch (e) {
       console.error("Error in handleSearch:", e);
       setSearchError(e.message);
     }
     setSearchLoading(false);
   };
-
 
   const handlePageChange = (num) => {
     console.log("Change page to:", num);
