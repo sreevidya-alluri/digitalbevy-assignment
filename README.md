@@ -28,4 +28,15 @@ backend/
 ├── app.js # Express app configuration
 ├── server.js # Entry point to start server
 ├── .env # Environment variables (not committed)
-├── package.json # Project metadata and dependencies
+├── package.json # Project metadata and dependencies 
+
+
+## API Endpoints
+
+- `POST /api/search`
+- Body: `{ "keyword": "react" }`
+- Description: Searches GitHub for repositories matching the keyword, stores first 5 results.
+
+- `GET /api/results?keyword=react`
+- Description: Retrieves stored repository results for the specified keyword.
+
