@@ -13,7 +13,7 @@ export default function App() {
   const [pages, setPages] = useState(1);
   const [currentKeyword, setCurrentKeyword] = useState("");
 
-  // Fetch dashboard results
+  
   const fetchResults = async (pageNum = 1, keyword) => {
     console.log(`Fetching results for keyword="${keyword}" page=${pageNum}`);
     setDashboardLoading(true);
@@ -44,7 +44,7 @@ export default function App() {
     }
   }, [currentKeyword]);
 
-  // Handle search form submit
+  
   const handleSearch = async (keyword) => {
     console.log("Starting search for:", keyword);
     setSearchError("");
@@ -62,9 +62,7 @@ export default function App() {
       const json = await res.json();
       console.log("Search POST response:", json);
 
-      setCurrentKeyword(keyword);  // Update keyword AFTER successful POST
-      // fetchResults is triggered automatically by useEffect on currentKeyword change
-
+      setCurrentKeyword(keyword);  
     } catch (e) {
       console.error("Error in handleSearch:", e);
       setSearchError(e.message);
@@ -72,7 +70,7 @@ export default function App() {
     setSearchLoading(false);
   };
 
-  // Handle dashboard page change
+
   const handlePageChange = (num) => {
     console.log("Change page to:", num);
     if (num !== page && num > 0 && num <= pages) {

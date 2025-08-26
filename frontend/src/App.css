@@ -1,8 +1,35 @@
-.App { max-width: 700px; margin: 0 auto; padding: 2rem; font-family: sans-serif; }
-.search-form { display: flex; gap: 1rem; margin-bottom: 2rem; }
-input[type="text"] { flex:1; padding: 0.5rem; font-size: 1rem; }
-button { padding: 0.6rem 1.2rem; }
-.dashboard ul { list-style: none; padding: 0; }
-.dashboard li { margin-bottom: 1rem; }
-.error { color: firebrick; }
-.pagination { margin-top: 1em; display: flex; gap: 1em; align-items: center; }
+.App {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 2rem;
+  font-family: sans-serif;
+}
+.search-form {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+input[type="text"] {
+  flex: 1;
+  padding: 0.5rem;
+  font-size: 1rem;
+}
+button {
+  padding: 0.6rem 1.2rem;
+}
+.dashboard ul {
+  list-style: none;
+  padding: 0;
+}
+.dashboard li {
+  margin-bottom: 1rem;
+}
+.error {
+  color: firebrick;
+}
+.pagination {
+  margin-top: 1em;
+  display: flex;
+  gap: 1em;
+  align-items: center;
+}
